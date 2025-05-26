@@ -2,23 +2,45 @@ import { Suspense } from "react"
 import Header from "@/components/layout/header"
 import Dashboard from "@/components/dashboard/dashboard"
 import LoadingState from "@/components/ui/loading-state"
+import OCPIChart from "@/components/charts/ocpi-chart"
+import NUPLChart from "@/components/charts/nupl-chart"
+import MVRVChart from "@/components/charts/mvrv-chart"
+import SOPRChart from "@/components/charts/sopr-chart"
+import RainbowChart from "@/components/charts/rainbow-chart"
+import CompositeMetricChart from "@/components/charts/composite-metric-chart"
+import CycleProjectionChart from "@/components/charts/cycle-projection-chart"
+import HistoricalCycleComparison from "@/components/charts/historical-cycle-comparison"
+import ScenarioAnalysis from "@/components/charts/scenario-analysis"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-black">
       <Header />
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Odyssey Cycle Predictor</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Track key on-chain metrics to identify market cycles and potential peaks. Current prediction: July-September
-            2025 cycle top.
-          </p>
+      <main className="container mx-auto p-4 space-y-8">
+        <h1 className="text-4xl font-bold text-center mb-8">Bitcoin Cycle Analysis Dashboard</h1>
+        
+        {/* OCPI Chart - Full width */}
+        <OCPIChart detailed={true} />
+        
+        {/* Main Metrics Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <NUPLChart />
+          <MVRVChart />
+          <SOPRChart />
+          <RainbowChart />
         </div>
-
-        <Suspense fallback={<LoadingState />}>
-          <Dashboard />
-        </Suspense>
+        
+        {/* Additional Analysis */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <CompositeMetricChart />
+          <CycleProjectionChart />
+        </div>
+        
+        {/* Historical Analysis */}
+        <div className="grid grid-cols-1 gap-4">
+          <HistoricalCycleComparison />
+          <ScenarioAnalysis />
+        </div>
       </main>
 
       <footer className="mt-16 py-8 border-t border-gray-200 dark:border-gray-800">

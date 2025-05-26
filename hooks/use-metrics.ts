@@ -1,13 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  fetchNUPLData,
-  fetchMVRVData,
-  fetchSOPRData,
-  fetchPriceData,
-  generateCompositeData,
-  type MetricData,
-  type PriceData
-} from '@/lib/api'
+import type { MetricData, PriceData } from '@/lib/api'
 
 export function useMetrics() {
   const [isLoading, setIsLoading] = useState(true)
@@ -30,20 +22,21 @@ export function useMetrics() {
     async function fetchData() {
       try {
         setIsLoading(true)
-        const [nupl, mvrv, sopr, price, composite] = await Promise.all([
-          fetchNUPLData(),
-          fetchMVRVData(),
-          fetchSOPRData(),
-          fetchPriceData(),
-          generateCompositeData()
-        ])
+        const metrics = ['nupl', 'mvrv', 'sopr', 'price', 'composite']
+        const results = await Promise.all(
+          metrics.map(metric =>
+            fetch(`/api/metrics?metric=${metric}`)
+              .then(res => res.json())
+              .then(res => res.data)
+          )
+        )
 
         setData({
-          nupl,
-          mvrv,
-          sopr,
-          price,
-          composite
+          nupl: results[0],
+          mvrv: results[1],
+          sopr: results[2],
+          price: results[3],
+          composite: results[4]
         })
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Failed to fetch metrics'))
@@ -53,6 +46,10 @@ export function useMetrics() {
     }
 
     fetchData()
+
+    // Set up polling every hour
+    const interval = setInterval(fetchData, 3600000)
+    return () => clearInterval(interval)
   }, [])
 
   return {

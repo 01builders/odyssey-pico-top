@@ -1,129 +1,100 @@
-# Bitcoin Cycle Analysis Dashboard
+# Bitcoin Cycle Dashboard - Development Plan
 
 ## Project Overview
-A modern, static dashboard for analyzing Bitcoin market cycles using key on-chain metrics and technical indicators. Deployable on GitHub Pages with client-side data fetching.
+Build a modern, responsive dashboard to track Bitcoin cycle metrics and predict market tops using on-chain indicators.
 
 ## Tech Stack
-- Next.js 14 (Static Export)
-- Tailwind CSS for styling
-- TradingView Lightweight Charts for charting
-- Public APIs:
-  - Glassnode API (on-chain metrics)
-  - CoinGecko API (price data)
-  - Alternative APIs if rate limits are an issue:
-    - CryptoCompare
-    - Blockchain.info
-    - Messari
-- Framer Motion for animations
-- Local Storage for caching API responses
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Charts**: Recharts (responsive, customizable)
+- **Data**: CoinGecko API, Glassnode API alternatives
+- **State Management**: React hooks
+- **Deployment**: Vercel
 
-## Architecture
-- Static site generation with Next.js
-- Client-side data fetching with SWR/React Query
-- Local storage for API response caching
-- No backend required
-- GitHub Pages deployment
+## Component Structure
 
-## Core Components
+### 1. Layout Components
+- **Header**: Navigation, current BTC price, cycle progress
+- **Dashboard Layout**: Responsive grid for charts and metrics
+- **Footer**: Disclaimers, data sources
 
-### 1. Main Dashboard Layout
-- [ ] Responsive header with current BTC price and 24h change
-- [ ] Navigation sidebar for different metric views
-- [ ] Main content area with dynamic charts
-- [ ] Mobile-optimized design
+### 2. Chart Components
+- **MainChart**: Combined view of BTC price with overlays
+- **NUPLChart**: Net Unrealized Profit/Loss with zones
+- **MVRVChart**: Market Value to Realized Value ratio
+- **SOPRChart**: Spent Output Profit Ratio
+- **RainbowChart**: Logarithmic regression bands
+- **CycleProgressChart**: 48-bar cycle visualization
 
-### 2. Key Metrics Charts
-- [ ] NUPL (Net Unrealized Profit/Loss) Chart
-  - Color-coded zones (Belief/Disbelief, Optimism/Anxiety, Euphoria)
-  - Historical cycle peaks marked
-  - Current cycle prediction overlay
+### 3. Metric Components
+- **MetricCard**: Individual metric display with status
+- **ActionBox**: Color-coded recommendations
+- **PeakPrediction**: Timeline and probability display
+- **RiskIndicator**: Overall market risk gauge
 
-- [ ] MVRV (Market Value to Realized Value) Chart
-  - Multiple timeframe views
-  - Historical cycle peaks
-  - Current cycle prediction
+### 4. Data Components
+- **DataFetcher**: API integration layer
+- **MockDataProvider**: Development data
+- **ChartDataTransformer**: Format data for charts
 
-- [ ] SOPR (Spent Output Profit Ratio) Chart
-  - Distribution phase indicators
-  - Euphoria zone markers
-  - Divergence warnings
+## Features
 
-- [ ] Bitcoin Rainbow Chart
-  - Logarithmic regression bands
-  - Historical cycle peaks
-  - Current price position
-
-### 3. Cycle Analysis Components
-- [ ] 48-Bar Cycle Timeline
-  - Current position in cycle
-  - Historical cycle comparisons
-  - Peak prediction window
-
-- [ ] Risk Management Dashboard
-  - Multi-metric confirmation status
-  - Exit strategy recommendations
-  - Re-entry signals
-
-### 4. Data Integration
-- [ ] API Integration Layer
-  - Rate limiting handling
-  - Error handling
-  - Fallback APIs
-  - Data caching strategy
-- [ ] Local Storage Management
-  - Cache invalidation
-  - Data persistence
-  - Offline support
-
-### 5. UI/UX Features
-- [ ] Dark/Light mode toggle
-- [ ] Interactive tooltips
-- [ ] Metric explanations
+### Phase 1: Core Dashboard
+- [ ] Basic layout and navigation
+- [ ] Mock data implementation
+- [ ] NUPL chart with zones
+- [ ] MVRV chart with historical peaks
+- [ ] Action boxes for each metric
 - [ ] Responsive design
-- [ ] Loading states
-- [ ] Error handling
-- [ ] Offline indicator
 
-## Implementation Phases
+### Phase 2: Advanced Features
+- [ ] Real-time data integration
+- [ ] SOPR chart implementation
+- [ ] Rainbow chart overlay
+- [ ] 48-bar cycle progress
+- [ ] Peak prediction algorithm
+- [ ] Historical comparison tool
 
-### Phase 1: Project Setup
-- [ ] Initialize Next.js project with static export
-- [ ] Set up Tailwind CSS
-- [ ] Configure API clients
-- [ ] Create basic layout
-- [ ] Set up GitHub Pages deployment
-
-### Phase 2: Core Charts
-- [ ] Implement main metrics charts
-- [ ] Add historical data
-- [ ] Create prediction overlays
-- [ ] Add interactive features
-
-### Phase 3: Analysis Features
-- [ ] Add cycle timeline
-- [ ] Implement risk management dashboard
-- [ ] Create metric explanations
-- [ ] Add historical comparisons
-
-### Phase 4: Polish & Optimization
-- [ ] Add animations
-- [ ] Optimize performance
-- [ ] Implement error handling
-- [ ] Add loading states
+### Phase 3: Polish & Enhancement
+- [ ] Dark/light mode toggle
+- [ ] Export chart functionality
+- [ ] Alert system for metric thresholds
 - [ ] Mobile optimization
-- [ ] Offline support
+- [ ] Performance optimization
+- [ ] Educational tooltips
 
-## Current Focus
-1. Set up project structure with static export
-2. Implement basic chart components
-3. Integrate core metrics with client-side fetching
-4. Add prediction overlays
+## Data Sources
+- **Price Data**: CoinGecko API (free tier)
+- **On-chain Metrics**: 
+  - Primary: Glassnode alternatives
+  - Fallback: Pre-calculated mock data
+  - Future: Direct blockchain analysis
 
-## Notes
-- All predictions are for educational purposes only
-- Not financial advice
-- Data accuracy depends on API reliability
-- Regular updates needed for real-time analysis
-- Consider API rate limits and implement appropriate caching
-- Use environment variables for API keys
-- Implement fallback data sources 
+## Color Scheme
+- **Danger/Sell**: Red (#EF4444)
+- **Warning/Caution**: Orange (#F59E0B)
+- **Neutral**: Yellow (#EAB308)
+- **Opportunity**: Green (#10B981)
+- **Buy Zone**: Blue (#3B82F6)
+
+## API Endpoints Needed
+1. Current BTC price
+2. Historical price data (2+ years)
+3. NUPL values
+4. MVRV ratio
+5. SOPR data
+6. Realized price
+
+## Development Timeline
+- Week 1: Layout, mock data, first two charts
+- Week 2: Remaining charts, action boxes
+- Week 3: API integration, real data
+- Week 4: Polish, testing, deployment
+
+## Key Considerations
+- Mobile-first responsive design
+- Fast loading with skeleton states
+- Clear visual hierarchy
+- Accessibility (ARIA labels, keyboard nav)
+- Performance (lazy loading, memoization)
+- Error handling for API failures
